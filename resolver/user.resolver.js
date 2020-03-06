@@ -1,8 +1,10 @@
 const { decodePassword, hashPassword } = require('../utils/bcrypt.hash');
+const { createToken } = require('../utils/token.jwt')
 
-const user = async (_,{input}, {model}) =>{
-    const {email  } = input
-   return model.user.findUser(email);
+const user = async (_,{input}, { user }) =>{
+    const userData = await user()
+    if(!userData) throw new Error('invalid token')
+    return userData;
 }
 
 const createUser = async (_, {input}, {model}) =>{
@@ -20,13 +22,15 @@ const loginUser = async (_, {input}, {model}) => {
     const {email, password} = input;
     try {
         const userData = await model.user.findUser(email);
-        userData.token = "hello"
+        userData.token = createToken(userData);
+        console.log(userData)
         return (decodePassword(password, userData.password) 
             ? userData : new Error('invalid login details') )
     } catch (error) {
         throw new Error(error)
     }
 };
+
 
 module.exports = {
     Query: {user, loginUser},

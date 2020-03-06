@@ -18,7 +18,7 @@ const User = gql`
 
     input LoginUserInput {
         email: String!
-        password: Float!
+        password: String!
     }
 
     input GetUserEmail {
