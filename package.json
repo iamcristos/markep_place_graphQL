@@ -20,8 +20,10 @@
   "homepage": "https://github.com/iamcristos/markep_place_graphQL#readme",
   "dependencies": {
     "apollo-server": "^2.11.0",
+    "bcryptjs": "^2.4.3",
     "graphql": "^14.6.0",
     "graphql-tools": "^4.0.7",
+    "jsonwebtoken": "^8.5.1",
     "knex": "^0.20.10",
     "lodash": "^4.17.15",
     "nodemon": "^2.0.2",

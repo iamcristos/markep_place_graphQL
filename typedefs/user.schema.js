@@ -6,6 +6,7 @@ const User = gql`
         email: String!
         location: Location
         profile_url: String
+        token: String
     }
 
     input UserInput {
@@ -15,12 +16,18 @@ const User = gql`
         password: String!
     }
 
+    input LoginUserInput {
+        email: String!
+        password: Float!
+    }
+
     input GetUserEmail {
         email: String!
     }
 
     extend type Query {
         user(input: GetUserEmail!): User!
+        loginUser(input: LoginUserInput!): User!
     }
 
     extend type Mutation {

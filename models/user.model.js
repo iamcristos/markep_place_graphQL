@@ -13,11 +13,17 @@ module.exports = {
     },
 
     createUser(body) {
-        const {email, password, location_id,profile_url} = body
         return db('users')
-            .insert({email,password,location_id,profile_url})
+            .insert(body)
             .returning('*')
             .then(res => res[0])
             .catch(err => console.error(err))
+    },
+
+    editUser(id, body) {
+        return db('users')
+            .update(body)
+            .where({id})
+            .returning("*")
     }
 }
