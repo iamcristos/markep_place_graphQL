@@ -11,7 +11,7 @@ const rootSchema = `
       mutation: Mutation
     }
   `;
-const schema = makeExecutableSchema({typeDefs, resolvers})
+const schema = makeExecutableSchema({typeDefs:[rootSchema, ...typeDefs], resolvers})
 const server = new ApolloServer({schema, context});
 
 server.listen().then(({url}) =>{

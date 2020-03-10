@@ -24,7 +24,6 @@ const Product = gql`
         user: User!
         price: Float!
         type: AllowedProduct!
-        age: Float!
     }
     type Animal implements Product{
         id: Float!
@@ -51,10 +50,9 @@ const Product = gql`
     }
 
     input CreateInput {
-        id: Float!
         name: String!
         description: String!
-        user: User!
+        user: Float!
         price: Float!
         type: AllowedProduct!
         age: Float
@@ -70,11 +68,11 @@ const Product = gql`
     }
 
     type Query {
-        product(input: IdInput!): Product
-        products: [Product]
+        product(input: IdInput!): Product!
+        products: [Product]!
     }
 
-    etend type Mutation{
+    extend type Mutation{
         createProduct(input: CreateInput!): Product!
     }
 

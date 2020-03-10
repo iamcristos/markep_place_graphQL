@@ -8,9 +8,11 @@ module.exports = {
     },
 
     findById(id) {
+        console.log(id)
         return db('users')
             .where({id})
             .first()
+            // .then(res=> console.log(res, 'user'))
     },
     findUserLocation(location_id) {
         return db('locations')
