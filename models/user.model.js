@@ -9,7 +9,7 @@ module.exports = {
 
     findById(id) {
         return db('users')
-            .where({email})
+            .where({id})
             .first()
     },
     findUserLocation(location_id) {
