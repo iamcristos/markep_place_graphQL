@@ -25,7 +25,6 @@ module.exports = {
             .insert(body)
             .returning('*')
             .then(res => res[0])
-            .catch(err => console.error(err))
     },
 
     editUser(id, body) {

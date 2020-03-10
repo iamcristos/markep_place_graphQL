@@ -12,7 +12,7 @@ exports.up = function(knex) {
         table.string('email', 255).notNullable().unique();
         table.string("password", 255).notNullable();
         table.string("profile_url", 255)
-        table.integer('location_id').unsigned().references('locations.id');
+        table.integer('location_id').unsigned().references('locations.id').onDelete('Cascade').onUpdate('Cascade');
     })
 };
 

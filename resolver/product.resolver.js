@@ -20,7 +20,6 @@ const createProduct = async(_, {input}, {model, user}) =>{
     const body = JSON.parse(JSON.stringify(input))
     try {
         const product = await model.product.createProduct(body)
-        console.log(product)
         return product
     } catch (error) {
         throw new Error('server error')

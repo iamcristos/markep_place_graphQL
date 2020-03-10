@@ -8,12 +8,13 @@ exports.up = function(knex) {
         table.integer('price').notNullable();
         table.integer('age').notNullable();
         table.enu('type', ['animal', 'plant']).notNullable();
-        table.integer('user').references('users.id');
+        table.integer('user').references('users.id').onDelete('Cascade').onUpdate('Cascade');
         table.integer('weight');
         table.integer('height');
         table.integer('length');
         table.enu('animalType', ['livestock', 'birds'])
         table.enu('plantType', ['cereal', 'fruits', 'tubers', 'others'])
+        table.unique(['type', 'name']);
     })
 };
 
