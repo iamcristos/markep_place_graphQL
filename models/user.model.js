@@ -6,6 +6,12 @@ module.exports = {
             .where({email})
             .first()
     },
+
+    findById(id) {
+        return db('users')
+            .where({email})
+            .first()
+    },
     findUserLocation(location_id) {
         return db('locations')
             .where({id: location_id})

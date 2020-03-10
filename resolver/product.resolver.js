@@ -4,8 +4,22 @@ const product = () =>{
     }
 }
 
+const AllowedProduct = {
+    animal: 'Animal',
+    plant: 'Plant'
+}
 module.exports = {
     Query: {
-        product
+        product,
+        products,
+        createProduct
+    },
+    Product: {
+        __resolveType(product){
+            return product.type[AllowedProduct]
+        },
+        user(product,_, {model}){
+            return model.user.findById(product.userId)
+        }
     }
 }
