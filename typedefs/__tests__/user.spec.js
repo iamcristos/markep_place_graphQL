@@ -2,10 +2,6 @@ const { mockServer } = require('apollo-server');
 const { typeDefs} = require('../index');
 
 describe('User Schema', () =>{
-    // let 
-    // beforeAll( async ()=> {
-
-    // })
     test('should resolve the schema', async(done) => {
        const server = mockServer(typeDefs);
        const query = `

@@ -1,13 +1,14 @@
 // // const {pubSub} = require('../index')
-// const {PubSub} = require('apollo-server')
-// const pubSub = new PubSub();
+const {PubSub} = require('apollo-server-express')
+const pubsub = new PubSub();
+const models = require('../models');
+
 const OrderPublished = 'OrderPublished';
 
 const order = async (_, {input}, {model, user}) =>{
     const {id} = input
     try {
         const order = await model.order.getOrder(id)
-        console.log(order);
         return order
     } catch (error) {
         throw new Error(error)
@@ -15,28 +16,37 @@ const order = async (_, {input}, {model, user}) =>{
 }
 
 const createOrder = async (_, {input}, ctx) => {
-    const {model, pubSub} = ctx
+    const {model} = ctx
     const body = JSON.parse(JSON.stringify(input))
-    pubSub.publish(OrderPublished, {
-        notifyOrder: body
-    })
     try {
         const order = await model.order.createOrder(body)
+        // const orders = {...order}
+        // orders.buyer = await model.user.findById(orders.buyer)
+        // orders.product = await model.product.findById(orders.product)
+        // console.log(orders)
+            await pubsub.publish(OrderPublished, {
+            notifyOrder: order
+            }
+        )
         return order
     } catch (error) {
-        console.error(error)
         throw new Error(error)
     }
 }
 
 module.exports = {
+    Subscription: {
+        notifyOrder: {
+            subscribe: () => pubsub.asyncIterator(OrderPublished)
+        }
+    },
     Query:{order},
     Mutation: {
         createOrder
     },
-    Subscription: {
-        notifyOrder: {
-            subcribe: (_, __, {pubSub}) =>  pubSub.asyncIterator(OrderPublished)
+    Order: {
+        async buyer(order, _, {model}){
+            return model.user.findById(order.buyer)
         }
     }
 }

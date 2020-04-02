@@ -11,7 +11,7 @@ const Order = gql`
         product: Product!
         message: String!
         processed: Boolean
-        created: String
+        created_at: String
     }
 
     input OrderInput {
@@ -29,6 +29,7 @@ const Order = gql`
     extend type Mutation {
         createOrder(input: OrderInput): Order!
     }
-`;
+    
+`
 
 module.exports = Order

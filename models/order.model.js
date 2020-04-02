@@ -12,9 +12,21 @@ module.exports = {
 
     getOrder(id) {
         return db('orders')
-            .where({id})
+            .where({ 'orders.id': id})
+            // .join('users','orders.buyer',  'users.id')
+            // .join('products','orders.product',  'products.id')
+            // .select('*')
             .first()
-            .innerJoin('users','orders.buyer', '=', 'users.id')
-            .innerJoin('products','orders.product', '=', 'product.id')
+    },
+
+    transaction(body, id) {
+        return db.transaction(function(trx) {
+            db('orders').update(body)
+                .where({id})
+                .transacting(trx)
+                .then(res => {
+                    
+                })
+        })
     }
 }
